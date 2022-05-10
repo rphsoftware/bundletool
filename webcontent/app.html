@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="welcome-screen">
+        <h1>Welcome to BundleTool.</h1>
+        <h3>Start by picking your playtest folder.</h3>
+        <input type="file" nwdirectory id="folder-picker">
+        <button id="continue-button">Continue</button>
+    </div>
+    <div class="mod-details" style="display: none">
+        <h2>We need to know more about your mod.</h2>
+        <div class="old-data" style="display:none;">
+            <h3>Old data found</h3>
+            <div><button id="reuse-old-data">Re-use old data</button><button id="discard-old-data">Discard old data</button></div>
+        </div>
+
+        <form style="margin-bottom: 4px;" id="mainform">
+            <label>Mod ID: <input required maxlength="32" minlength="2" pattern="^[A-Za-z0-9]*$" type="text" name="modid" id="mod-id"></label>
+            <label>Mod Name: <input required type="text" name="modname" maxlength="64" minlength="2" id="mod-name"></label>
+            <label>Mod description: <input required type="text" maxlength="512" minlength="0" name="moddescription" id="mod-description"></label>
+            <label>Mod version: <input required type="text" maxlength="16" minlength="1" name="modversion" id="mod-version"></label>
+            <h4>Select what to include</h4>
+            <label>Include /audio <input type="checkbox" name="i_audio" id="incl-audio" checked></label>
+            <label>Include /data <input type="checkbox" name="i_data" id="incl-data" checked></label>
+            <label>Include /fonts <input type="checkbox" name="i_fonts" id="incl-fonts" checked></label>
+            <label>Include the icon <input type="checkbox" name="i_icon" id="incl-icon" checked></label>
+            <label>Include /img <input type="checkbox" name="i_img" id="incl-img" checked></label>
+            <label>Include plugins <input type="checkbox" name="i_plugins" id="incl-plugins" checked></label>
+            <label>Include /languages <input type="checkbox" name="i_lang" id="incl-languages" checked></label>
+            <label>Include /maps <input type="checkbox" name="i_maps" id="incl-maps" checked></label>
+            <label>Include /movies <input type="checkbox" name="i_movies" id="incl-movies" checked></label>
+            <p style="margin-bottom:0;">Note: You will be asked about deltas and zipping at their respective stages.</p>
+            <p style="margin:0;">Note: You may need as much as 5 GB of free disk space for this process to be successful.</p>
+        </form>
+        <button id="begin-process">Continue</button>
+    </div>
+    <div class="job-status" style="display:none">
+        <h1 class="job-heading">Preparing job details</h1>
+        <div class="progress-bar">
+            <div class="progress-bar-inner" style="width: 40%;"></div>
+        </div>
+        <p class="job-extra-info">Preparing job extra info</p>
+    </div>
+
+    <div class="option-list" style="display: none;">
+        <h2>Option list</h2>
+        <div class="option-list-inner">
+            <div class="option-headers">
+                <div class="o-h">Ignore</div>
+                <div class="o-h">Delta</div>
+                <div class="o-h">Include</div>
+            </div>
+            <div class="option-header">AAAAAAAAA</div>
+            <div class="option">
+                <div class="option-old"></div>
+                <div class="option-text">Option 1</div>
+                <div class="option-button-cluster">
+                    <div><input type="radio" name="o_1"></div>
+                    <div><input type="radio" name="o_1" checked></div>
+                    <div><input type="radio" name="o_1"></div>
+                </div>
+            </div>
+            <div class="option">
+                <div class="option-old"></div>
+                <div class="option-text">Option 2</div>
+                <div class="option-button-cluster">
+                    <div><input type="radio" name="o_2"></div>
+                    <div><input type="radio" name="o_2" checked></div>
+                    <div><input type="radio" name="o_2"></div>
+                </div>
+            </div>
+            <div class="option-header">AAAAAAAAA</div>
+            <div class="option">
+                <div class="option-new"></div>
+                <div class="option-text">Option 3</div>
+                <div class="option-button-cluster">
+                    <div><input type="radio" name="o_3" checked></div>
+                    <div class="noop"></div>
+                    <div><input type="radio" name="o_3"></div>
+                </div>
+            </div>
+            <div class="option">
+                <div class="option-new"></div>
+                <div class="option-text">Option 4</div>
+                <div class="option-button-cluster">
+                    <div><input type="radio" name="o_4"></div>
+                    <div class="noop"></div>
+                    <div><input type="radio" name="o_4" checked></div>
+                </div>
+            </div>
+        </div>
+        <div class="legend">
+            <div class="legend-box legend-box-old"></div>
+            <div class="legend-box legend-box-new"></div>
+        </div>
+    </div>
+
+    <div class="icon-prompt" style="display: none;">
+        <h2>Include your modded icon?</h2>
+        <div>
+            <!--   
+                <button>Yes</button>
+                <button>No</button>
+                    
+            -->
+        </div>
+    </div>
+    <div class="file-loc-prompt" style="display: none;">
+        <h2>Where to save your mod?</h2>
+        <input type=file nwsaveas="sa" id="sa">
+    </div>
+
+    <a href="javascript:window.location.reload()">Reload</a>
+    <script type="module" src="app.js"></script>
+</body>
+</html>

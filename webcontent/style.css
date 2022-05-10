@@ -1,0 +1,251 @@
+.welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: white;
+    font-family: sans-serif;
+    background: #222;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+}
+.welcome-screen button {
+    width: 200px;
+    height: 25px;
+    background: hsl(200, 85%, 35%);
+    margin-top: 16px;
+    color: white;
+    border: none;
+}
+.mod-details {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: white;
+    font-family: sans-serif;
+    background: #222;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+}
+.mod-details form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.mod-details h4 {
+    margin-bottom: 0;
+    margin-top: 4px;
+}
+.mod-details h2 {
+    margin-bottom: 4px;
+    margin-top: 4px;
+}
+.mod-details label {
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+}
+.mod-details label:nth-child(2n) {
+    background: #fff6;
+}
+.old-data {
+    width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 8px;
+    background: #f003;
+    bordeR: 2px solid green;
+    margin-bottom: 4px;
+}
+.old-data * {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+.mod-details input[type=text] {
+    width: 250px;
+}
+body > div {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: white;
+    font-family: sans-serif;
+    background: #222;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+}
+.progress-bar {
+    width: 90vw;;
+    border-radius: 8px;
+    height: 24px;
+    background: #888;
+    position: relative;
+    overflow:hidden;
+}
+.progress-bar-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 24px;
+    border-radius: 8px;
+    background:hsl(200, 85%, 35%);
+}
+.option-list h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+.option-list-inner {
+    width: 90vw;;
+    background: #333;
+    height: 80vh;
+    overflow-y: auto;
+}
+.option-headers {
+    top: 0;
+    left: 0;
+    right: 0;
+    position: sticky;
+    z-index:1;
+    min-height: 36px;
+    display: flex;
+    justify-content: flex-end;
+}
+.option-headers .o-h {
+    width: 44px;
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    cursor: pointer;
+    user-select: none;
+    align-items: center;
+    justify-content: center;
+}
+.option-headers {
+    background: #555;
+}
+.option-headers .o-h:nth-child(2n) {
+    background: #888;
+}
+.option-list button {
+    margin-top: 4px;
+    width: 200px;
+    height: 25px;
+    background: hsl(200, 85%, 35%);
+    color: white;
+    border: none;
+}
+.option-list .legend {
+    display: flex;
+}
+.legend .legend-box {
+    width: 24px;
+    margin-right: 70px;
+    position: relative;
+    height: 24px;
+    background: hsl(0, 85%, 35%);
+}
+.legend-box.legend-box-old {
+    margin-right: 120px;
+}
+.legend-box.legend-box-new {
+    background: hsl(120, 85%, 35%);
+}
+.legend-box-new:after {
+    content: "New files";
+}
+.legend-box-old:after {
+    content: "Existing files";
+}
+.legend-box:after {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    line-height: 24px;
+    width: 120px;
+}
+
+.option-header {
+    line-height: 36px;
+    background: #000;
+    color: white;
+    text-align: center;
+}
+.option {
+    display: flex;
+    align-items: center;
+}
+
+.option-old,.option-new {
+    width: 6px;
+    height: 36px;
+    background: white;
+    /* margin-left: 6px; */
+    margin-right: 6px;
+}
+.option-old{
+    background:hsl(0, 85%, 35%);
+}
+.option-new {
+    background: hsl(120, 85%, 35%);
+}
+
+.option-button-cluster {
+    display: flex;
+    height: 100%;
+}
+.option-button-cluster>* {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+}
+.option-button-cluster>*:nth-child(2n) {
+    background: #666;
+}
+.option-button-cluster>*:nth-child(2n+1) {
+    background: #444;
+}
+.option {
+    height: 36px;
+}
+.option:nth-of-type(2n) {
+    background: #444;
+}
+.option:nth-of-type(2n+1) .option-button-cluster>*:nth-child(2n+1) {
+    background: #333;
+}
+.option-text {
+    flex: 1;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+input[type=radio] {
+    width: 24px;
+    -webkit-appearance: none;
+    height: 24px;
+    background: #fff;
+    position: relative;
+}
+input[type=radio]:checked:after {
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: #888;
+    content: " ";
+}

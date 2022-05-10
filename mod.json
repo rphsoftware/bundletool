@@ -1,0 +1,16 @@
+{
+    "$schema": "https://rph.space/oneloader.manifestv1.schema.json",
+    "id":"bundletool",
+    "name":"Bundle Tool",
+    "description": "Mod Packager Software",
+    "manifestVersion": 1,
+    "version": "1.0.0",
+    "_flags":[],
+    "files":{},
+    "asyncExec":[
+        {
+            "file":"bundletool.js",
+            "runat":"post_stage_2"
+        }
+    ]
+}
