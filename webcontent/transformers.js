@@ -21,6 +21,13 @@ const DATA_RULES = [
     },
     {
         formatMap: {
+            "yml":{target:"HERO",delta:false, encrypt: true},
+            "yaml":{target:"HERO", delta:false, encrypt: true}
+        },
+        mountPoint: "languages/jp"
+    },
+    {
+        formatMap: {
             "json":{target: "AUBREY", delta: false, encrypt: true}
         },
         mountPoint: "maps"
@@ -75,4 +82,22 @@ export function readEncryptedGameFile(gameBase, d, encoding) {
     }
 
     return buff;
+}
+
+export function dewindowsLineEndings(virtualPath, data, gameBase) {
+    if (virtualPath.startsWith("data") || virtualPath.startsWith("languages") || virtualPath.startsWith("js") || virtualPath.startsWith("maps")) {
+        if (virtualPath.endsWith(".js") || virtualPath.endsWith(".yaml") || virtualPath.endsWith(".json") || virtualPath.endsWith(".yml")) {
+            if (Buffer.isBuffer(data)) {
+                let data2 = data.toString("utf-8");
+                data2 = data2.replace(/\r\n/g, "\n");
+                return Buffer.from(data2, "utf-8");
+            } else {
+                let data2 = readEncryptedGameFile(gameBase, virtualPath, "utf-8");
+                data2 = data2.replace(/\r\n/g, "\n");
+                return Buffer.from(data2, "utf-8");
+            }
+        }
+    }
+
+    return data;
 }

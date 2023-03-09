@@ -110,7 +110,7 @@ body > div {
 .option-list-inner {
     width: 90vw;;
     background: #333;
-    height: 80vh;
+    height: 70vh;
     overflow-y: auto;
 }
 .option-headers {

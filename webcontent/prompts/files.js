@@ -42,7 +42,7 @@ export async function doFilePrompts(modJson, job) {
 
     let img = [
         ...(queues.img.existing.length > 0 ? [[1, "Existing image files"]] : []),
-        ...queues.img.existing.map(a => ([0, 0, a, [0, 1, 2]])),
+        ...queues.img.existing.map(a => ([0, 0, a, (a.endsWith("png") ? [0, 1, 2] : [0,2])])),
         ...(queues.img.new.length > 0 ? [[1, "New image files"]] : []),
         ...queues.img.new.map(a => ([0, 1, a, [0, 2]])),
     ];

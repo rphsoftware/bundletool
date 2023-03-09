@@ -1,7 +1,7 @@
 // This file is a special one
 
 import { lastSpecialMode, recursiveReaddir, setLastSpecialMode } from "./readdir.js";
-import { readEncryptedGameFile, transformFilenameForEncrypted } from "./transformers.js";
+import { dewindowsLineEndings, readEncryptedGameFile, transformFilenameForEncrypted } from "./transformers.js";
 import { setJobTitle, setProgressBar, setSubtitle } from "./ui.js";
 import { forceYield, maybeYield } from "./yielder.js";
 
@@ -9,6 +9,8 @@ const fs = window.parent.require('fs');
 const path = window.parent.require('path').posix;
 
 export async function runComparison(cmpPaths, gameBase, playtestBase) {
+    const tmpBase = path.join(gameBase, "..", ".bundletool_temporary");
+    fs.mkdirSync(tmpBase);
     setJobTitle("Comparing files");
     setSubtitle("Reading folder");
     setProgressBar(0, 1);
@@ -32,10 +34,12 @@ export async function runComparison(cmpPaths, gameBase, playtestBase) {
     let done = 0;
 
     playtestFiles = playtestFiles.filter(a => {
-        return (a !== "img/system/Loading.png" && a !== "img/system/Window.png" && a !== "languages/en/donottouch.xlsx");
+        return (a !== "img/system/Loading.png" && a !== "img/system/Window.png" && a !== "languages/en/donottouch.xlsx" && a !== "languages/jp/donottouch.xlsx");
     });
     for (let a of playtestFiles) {
         let data = fs.readFileSync(path.join(playtestBase, a));
+        data = dewindowsLineEndings(a, data);
+        
         let buff = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
 
         let digest = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", buff))).map(b=>b.toString(16).padStart(2, '0')).join('');
@@ -68,8 +72,11 @@ export async function runComparison(cmpPaths, gameBase, playtestBase) {
     setSubtitle("Hashing in-game files...");
     for (let a of isInGame) {
         let d = readEncryptedGameFile(gameBase, a);
+        d = dewindowsLineEndings(a, d, gameBase);
+        if (Buffer.isBuffer(d)) {
+            d = d.buffer.slice(d.byteOffset, d.byteOffset + d.byteLength);
+        }
         let digest = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", d))).map(b=>b.toString(16).padStart(2, '0')).join('');
-
         if (playtestHashes[a] !== digest) {
             inGameChanged.push(a);
         }

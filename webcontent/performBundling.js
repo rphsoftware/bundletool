@@ -187,7 +187,6 @@ export async function performBundle(modJson, jobDecisions, gameBase, playtestBas
 
         if (decision > 0) {
             let mode = (dataPath.endsWith("yml") || dataPath.endsWith("yaml")) ? "yaml":"json";
-
             if (decision === 1) { // Delta
                 let bgdata = readEncryptedGameFile(gameBase, path.join("data", dataPath), "utf-8");
                 let ptdata = fs.readFileSync(path.join(playtestBase, "data", dataPath), "utf-8");
@@ -469,7 +468,9 @@ export async function performBundle(modJson, jobDecisions, gameBase, playtestBas
             if (stats.isFile()) {
                 let data = fs.readFileSync(pathTotal);
                 data = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
-                zipWriteBase.file(file, data);
+                zipWriteBase.file(file, data, {
+                    compression: "store"
+                });
                 setSubtitle(file);
             } else {
                 await ae(pathTotal, zipWriteBase.folder(file));
