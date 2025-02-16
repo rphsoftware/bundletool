@@ -9,6 +9,14 @@ import { readEncryptedGameFile, transformFilenameForEncrypted } from "./transfor
 
 const fs = window.parent.require('fs');
 const path = window.parent.require('path');
+
+async function getNormalizedDigest(buffer) {
+    let text = new TextDecoder().decode(buffer);
+    text = text.replace(/\r\n/g, '\n');
+    const normalizedBuffer = new TextEncoder().encode(text);
+    return Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", normalizedBuffer))).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 export async function comparePlugins(gameBase, playtestBase) {
     setJobTitle("Comparing plugins");
     setSubtitle("");
@@ -45,8 +53,8 @@ export async function comparePlugins(gameBase, playtestBase) {
             let buff_p = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
 
             let buff_b = await readEncryptedGameFile(gameBase, "js/plugins/" + a.name + ".js");
-            let digest_p = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", buff_p))).map(b=>b.toString(16).padStart(2, '0')).join('');
-            let digest_b = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", buff_b))).map(b=>b.toString(16).padStart(2, '0')).join('');
+            let digest_p = await getNormalizedDigest(buff_p);
+            let digest_b = await getNormalizedDigest(buff_b);
             if (digest_p !== digest_b) {
                 changedFiles.push(a.name);
             }
