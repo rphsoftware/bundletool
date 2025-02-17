@@ -4,7 +4,7 @@
     "name":"Bundle Tool",
     "description": "Mod Packager Software",
     "manifestVersion": 1,
-    "version": "1.0.2",
+    "version": "1.0.3",
     "_flags":[],
     "files":{},
     "asyncExec":[

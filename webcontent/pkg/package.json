@@ -1,0 +1,15 @@
+{
+  "name": "imagediff2",
+  "collaborators": [
+    "Rph <rphsoftware@gmail.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "imagediff2_bg.wasm",
+    "imagediff2.js",
+    "imagediff2.d.ts"
+  ],
+  "module": "imagediff2.js",
+  "types": "imagediff2.d.ts",
+  "sideEffects": false
+}
