@@ -94,6 +94,8 @@ async function s2(p) {
 
     jobDecisions.plugins = await processPluginOptions(modJson, jobs.plugins);
 
+    jobDecisions.linebreak = d.i_linebreak;
+
     await performBundle(modJson, jobDecisions, base, p, jobs.plugins);
 }
 

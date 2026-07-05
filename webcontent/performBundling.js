@@ -53,6 +53,23 @@ function imgToCanvas(img) {
     return ctx;
 }
 
+function formatJson(modJson, linebreak) {
+    let result = JSON.stringify(modJson);
+    // The reason for not full JSON format is to save file size from bloating.
+    // Singular linebreak per operation only adds 1-5% to filesize most of the time,
+    // compared to full giving 20-100% file size
+    if (linebreak) {
+        // Only line break first level, array of objects starting with "op" 
+        // [{"op": stuff},{"op": stuff},...,{"op": stuff}]
+        // It may linebreak more if the data somehow contains that exact format, 
+        // but it should be interrupted by special characters having backslash in actual data
+        result = result.replace(/{"op":/g, "\n{\"op\":");
+        // also linebreak the last bracket, remove last character and add back with newline
+        result = result.slice(0, -1) + "\n]";
+    }
+    return result;
+} 
+
 export async function performBundle(modJson, jobDecisions, gameBase, playtestBase, pluginJob) {
     const tmpBase = path.join(gameBase, "..", ".bundletool_temporary");
     setJobTitle("Building the mod...");
@@ -217,7 +234,7 @@ export async function performBundle(modJson, jobDecisions, gameBase, playtestBas
 
                 let delta = compare(bgdata, ptdata);
                 let noExtFname = dataPath.split(/\.[^\.]+$/)[0];
-                fs.writeFileSync(path.join(tmpBase, "data", `${noExtFname}.${ext}`), JSON.stringify(delta));
+                fs.writeFileSync(path.join(tmpBase, "data", `${noExtFname}.${ext}`), formatJson(delta, jobDecisions.linebreak));
 
                 modJson.files.data.push(ppath.join("data", `${noExtFname}.${ext}`));
             } else {
@@ -254,7 +271,7 @@ export async function performBundle(modJson, jobDecisions, gameBase, playtestBas
 
                 let delta = compare(bgdata, ptdata);
                 let noExtFname = mapPath.split(/\.[^\.]+$/)[0];
-                fs.writeFileSync(path.join(tmpBase, "maps", `${noExtFname}.${ext}`), JSON.stringify(delta));
+                fs.writeFileSync(path.join(tmpBase, "maps", `${noExtFname}.${ext}`), formatJson(delta, jobDecisions.linebreak));
 
                 modJson.files.maps.push(ppath.join("maps", `${noExtFname}.${ext}`));
             } else {
@@ -292,7 +309,7 @@ export async function performBundle(modJson, jobDecisions, gameBase, playtestBas
                 let delta = compare(bgdata, ptdata);
                 langPath = langPath.split("/")[1];
                 let noExtFname = langPath.split(/\.[^\.]+$/)[0];
-                fs.writeFileSync(path.join(tmpBase, "languages", `${noExtFname}.${ext}`), JSON.stringify(delta));
+                fs.writeFileSync(path.join(tmpBase, "languages", `${noExtFname}.${ext}`), formatJson(delta, jobDecisions.linebreak));
 
                 modJson.files.text.push(ppath.join("languages", `${noExtFname}.${ext}`));
             } else {
